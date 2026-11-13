@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rekap Season: Felix × Cia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Nunito:wght@400;600;800&family=Permanent+Marker&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f1f6fd; --paper2:#dde9f8; --ink:#1f2d4a; --ink-soft:#56637d;
+  --pink:#5b9bf0; --pink-deep:#2f6fd6; --lilac:#8fa8f2; --mint:#9edcea; --sun:#ffd36b;
+  --kraft:#a9c8ec;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Nunito',sans-serif;color:var(--ink);
+  background:
+    radial-gradient(circle at 20% 10%,rgba(91,155,240,.12),transparent 40%),
+    radial-gradient(circle at 85% 60%,rgba(143,200,245,.18),transparent 45%),
+    repeating-linear-gradient(0deg,transparent 0 31px,rgba(47,111,214,.07) 31px 32px),
+    var(--paper);
+  min-height:100vh;overflow-x:hidden;
+}
+.hand{font-family:'Caveat',cursive}
+.marker{font-family:'Permanent Marker',cursive}
+section{max-width:960px;margin:0 auto;padding:72px 20px;position:relative}
+h2{font-family:'Caveat',cursive;font-size:clamp(2.4rem,7vw,3.4rem);line-height:1;text-align:center;margin-bottom:8px}
+.sub{text-align:center;color:var(--ink-soft);margin-bottom:36px}
+.tape{position:absolute;width:110px;height:28px;opacity:.85;z-index:3;
+  background:repeating-linear-gradient(45deg,rgba(91,155,240,.7) 0 8px,rgba(255,255,255,.55) 8px 16px);
+  box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.tape.lilac{background:repeating-linear-gradient(-45deg,rgba(143,168,242,.8) 0 8px,rgba(255,255,255,.55) 8px 16px)}
+.tape.mint{background:repeating-linear-gradient(90deg,rgba(158,220,234,.9) 0 10px,rgba(255,255,255,.5) 10px 14px)}
+.btn{font-family:'Nunito';font-weight:800;border:2.5px solid var(--ink);border-radius:999px;
+  padding:12px 26px;font-size:1rem;cursor:pointer;background:var(--pink);color:#fff;
+  box-shadow:3px 4px 0 var(--ink);transition:transform .15s,box-shadow .15s}
+.btn:active{transform:translate(3px,4px);box-shadow:0 0 0 var(--ink)}
+.btn.ghost{background:#fff;color:var(--ink)}
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .8s,transform .8s}
+.reveal.in{opacity:1;transform:none}
+
+/* ---------- COVER ---------- */
+#cover{position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;
+  background:var(--paper);transition:opacity .7s,visibility .7s;padding:20px}
+#cover.gone{opacity:0;visibility:hidden}
+.parcel{position:relative;width:min(380px,90vw);background:var(--kraft);border-radius:6px;padding:34px 26px 30px;
+  text-align:center;box-shadow:0 18px 40px rgba(20,50,100,.25);
+  background-image:repeating-linear-gradient(90deg,rgba(0,0,0,.03) 0 2px,transparent 2px 6px)}
+.parcel:before{content:"";position:absolute;left:50%;top:0;bottom:0;width:30px;transform:translateX(-50%);
+  background:rgba(91,155,240,.5)}
+.parcel .label{position:relative;background:#fbfdff;border-radius:4px;padding:22px 18px;transform:rotate(-2deg);
+  box-shadow:0 2px 6px rgba(0,0,0,.12)}
+.parcel .label h1{font-family:'Caveat';font-size:2.6rem;line-height:1}
+.parcel .label p{margin-top:8px;color:var(--ink-soft);font-size:.95rem}
+.stamp{display:inline-block;font-family:'Permanent Marker';color:var(--pink-deep);border:3px solid var(--pink-deep);
+  border-radius:8px;padding:2px 10px;transform:rotate(-8deg);font-size:.9rem;opacity:.85}
+.cover-btns{display:flex;gap:14px;justify-content:center;margin-top:24px;position:relative;min-height:56px}
+#nanti{transition:transform .25s}
+.cover-note{position:relative;margin-top:14px;font-family:'Caveat';font-size:1.3rem;min-height:1.6em;color:#1f3a66}
+
+/* ---------- HERO ---------- */
+#hero{padding-top:90px;text-align:center}
+#hero .big{font-family:'Caveat';font-size:clamp(3rem,11vw,5.2rem);line-height:.95}
+#hero .big span{color:var(--pink-deep)}
+#hero p{max-width:520px;margin:18px auto 0;color:var(--ink-soft)}
+.scroll-hint{margin-top:34px;font-family:'Caveat';font-size:1.4rem;animation:bob 1.6s infinite}
+@keyframes bob{50%{transform:translateY(8px)}}
+
+/* ---------- PLAYER CARDS ---------- */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:34px}
+.pcard{position:relative;background:#fff;border:2.5px solid var(--ink);border-radius:14px;padding:24px 22px 22px;
+  box-shadow:6px 7px 0 var(--ink)}
+.pcard:nth-child(1){transform:rotate(-1.5deg);background:#f3f8ff}
+.pcard:nth-child(2){transform:rotate(1.5deg);background:#eef3ff}
+.pcard .tape{top:-14px;left:50%;margin-left:-55px}
+.pcard .ign{font-size:.8rem;letter-spacing:.08em;color:var(--ink-soft);text-transform:uppercase}
+.pcard h3{font-family:'Caveat';font-size:2.6rem;line-height:1}
+.pcard .role{display:inline-block;margin:8px 0 14px;background:var(--ink);color:#fff;font-weight:800;font-size:.78rem;
+  padding:4px 10px;border-radius:6px;letter-spacing:.05em}
+.stat{display:flex;justify-content:space-between;gap:10px;font-size:.92rem;padding:7px 0;border-bottom:1.5px dashed rgba(31,45,74,.2)}
+.stat b{text-align:right}
+.bar{height:10px;border:2px solid var(--ink);border-radius:999px;margin-top:4px;overflow:hidden;background:#fff}
+.bar i{display:block;height:100%;width:0;background:var(--pink);transition:width 1.4s ease}
+.pcard:nth-child(2) .bar i{background:var(--lilac)}
+.mvp{position:absolute;right:-16px;top:-22px;width:86px;height:86px;border-radius:50%;background:var(--sun);
+  border:3px solid var(--ink);display:flex;align-items:center;justify-content:center;flex-direction:column;
+  font-family:'Permanent Marker';transform:rotate(14deg);box-shadow:3px 3px 0 var(--ink);font-size:1.3rem;line-height:1}
+.mvp small{font-family:'Nunito';font-weight:800;font-size:.55rem}
+
+/* ---------- GALLERY ---------- */
+.board{columns:3 230px;column-gap:26px}
+.polaroid{break-inside:avoid;background:#fff;padding:12px 12px 14px;margin-bottom:30px;position:relative;
+  box-shadow:0 8px 22px rgba(20,45,90,.18);transition:transform .3s;cursor:zoom-in}
+.polaroid:hover{transform:rotate(0) scale(1.03)!important;z-index:5}
+.polaroid img{width:100%;display:block;background:#eee}
+.polaroid figcaption{font-family:'Caveat';font-size:1.35rem;line-height:1.15;margin-top:10px;text-align:center}
+.polaroid .tape{top:-12px;left:50%;margin-left:-55px;transform:rotate(-4deg)}
+.polaroid.feature{background:#f7fbff}
+#lightbox{position:fixed;inset:0;background:rgba(15,25,45,.85);z-index:60;display:none;align-items:center;justify-content:center;padding:20px;cursor:zoom-out}
+#lightbox.on{display:flex}
+#lightbox img{max-width:100%;max-height:85vh;border:10px solid #fff;box-shadow:0 10px 40px rgba(0,0,0,.4)}
+
+/* ---------- RANK ---------- */
+.evidence{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:26px;margin-bottom:34px}
+.rankbox{background:#fff;border:2.5px solid var(--ink);border-radius:18px;box-shadow:6px 7px 0 var(--ink);padding:26px 18px;text-align:center;max-width:640px;margin:0 auto}
+.rk-row{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:22px}
+.rk{flex:1;max-width:200px;border:2.5px solid var(--ink);border-radius:14px;padding:14px 8px;background:#fff7d6}
+.rk small{display:block;font-size:.68rem;font-weight:800;letter-spacing:.08em;color:var(--ink-soft)}
+.rk b{display:block;font-family:'Permanent Marker';font-size:1.9rem;margin:4px 0}
+.rk span{font-family:'Caveat';font-size:1.15rem}
+.rk.now{background:#eef2f8;transition:background .4s}
+.rk.now.hit{background:#e3f1fb;animation:shake .5s}
+.rk-arrow{font-size:1.6rem}
+@keyframes shake{20%,60%{transform:translateX(-6px) rotate(-2deg)}40%,80%{transform:translateX(6px) rotate(2deg)}}
+.ape{display:none;margin-top:22px}
+.epic-logo{display:block;width:150px;margin:0 auto 6px;opacity:0;filter:drop-shadow(0 8px 14px rgba(0,0,0,.25))}
+.ape.on .epic-logo{animation:dropIn .7s cubic-bezier(.2,1.4,.4,1) forwards}
+@keyframes dropIn{0%{transform:translateY(-80px) rotate(-20deg) scale(.4);opacity:0}100%{transform:none;opacity:1}}
+.ape.on .epic-stamp{animation-delay:.55s}
+.ape.on{display:block}
+.epic-stamp{display:inline-block;font-family:'Permanent Marker';font-size:clamp(2.6rem,12vw,4rem);color:#c62f4f;border:5px solid #c62f4f;
+  border-radius:12px;padding:0 18px;transform:rotate(-9deg) scale(2.4);opacity:0}
+.ape.on .epic-stamp{animation:stampIn .45s cubic-bezier(.2,1.6,.4,1) forwards}
+@keyframes stampIn{to{transform:rotate(-9deg) scale(1);opacity:.9}}
+.ape-txt{font-family:'Caveat';font-size:clamp(1.9rem,6vw,2.5rem);font-weight:700;margin-top:18px;line-height:1.1}
+.ape-sub{color:var(--ink-soft);margin-top:8px}
+.hiatus{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-top:30px}
+.hiatus div{background:var(--paper2);border:2px dashed var(--ink);border-radius:12px;padding:10px 16px;text-align:center;min-width:150px}
+.hiatus small{display:block;font-size:.68rem;font-weight:800;letter-spacing:.08em;color:var(--ink-soft)}
+.hiatus b{font-family:'Caveat';font-size:1.5rem}
+
+/* ---------- BADGES ---------- */
+.badges{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:18px}
+.badge{perspective:900px;height:180px;cursor:pointer}
+.badge .inner{position:relative;width:100%;height:100%;transition:transform .6s;transform-style:preserve-3d}
+.badge.flip .inner{transform:rotateY(180deg)}
+.badge .face{position:absolute;inset:0;backface-visibility:hidden;border:2.5px solid var(--ink);border-radius:16px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:16px;box-shadow:4px 5px 0 var(--ink)}
+.badge .front{background:#fff}
+.badge .front .ico{font-size:2.6rem}
+.badge .front .t{font-weight:800;margin-top:8px}
+.badge .front .lock{font-size:.75rem;color:var(--ink-soft);margin-top:6px}
+.badge .back{transform:rotateY(180deg);background:var(--mint);font-family:'Caveat';font-size:1.3rem;line-height:1.1;padding:12px}
+.badge:nth-child(3n+2) .back{background:#cfe3fb}
+.badge:nth-child(3n) .back{background:#dde3fb}
+.counter{text-align:center;margin-top:22px;font-family:'Caveat';font-size:1.5rem}
+
+/* ---------- QUIZ ---------- */
+.quiz{background:#fff;border:2.5px solid var(--ink);border-radius:18px;padding:30px 22px;box-shadow:6px 7px 0 var(--ink);
+  max-width:620px;margin:0 auto;text-align:center;position:relative;min-height:300px}
+.quiz .qn{font-size:.8rem;font-weight:800;letter-spacing:.1em;color:var(--pink-deep)}
+.quiz h3{font-family:'Caveat';font-size:2.1rem;line-height:1.1;margin:8px 0 22px}
+.opts{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;position:relative;min-height:60px}
+.opts .btn{background:#fff;color:var(--ink)}
+.opts .btn:nth-child(2){background:var(--lilac);color:#fff}
+.opts .btn:nth-child(3){background:var(--mint);color:var(--ink)}
+.dodge{position:relative;transition:left .2s,top .2s}
+.qres{margin-top:22px;font-family:'Caveat';font-size:1.6rem;min-height:2.2em}
+.qnext{margin-top:6px;display:none}
+
+/* ---------- STICKERS ---------- */
+.stickers{display:flex;flex-wrap:wrap;gap:22px;justify-content:center}
+.stk{width:150px;height:150px;border:3px dashed rgba(31,45,74,.35);border-radius:18px;display:flex;align-items:center;justify-content:center;
+  text-align:center;font-family:'Caveat';font-size:1.25rem;color:var(--ink-soft);padding:12px;background:rgba(255,255,255,.5);position:relative}
+.stk:nth-child(odd){transform:rotate(-4deg)}.stk:nth-child(even){transform:rotate(3deg)}
+.stk img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;border-radius:14px;background:#fff;border:3px solid #fff;box-shadow:0 6px 16px rgba(0,0,0,.15)}
+.stkf{text-align:center;width:150px}
+.stkf figcaption{font-family:'Caveat';font-size:1.25rem;line-height:1.1;margin-top:12px}
+.stkf:nth-child(odd) .stk{transform:rotate(-4deg)}.stkf:nth-child(even) .stk{transform:rotate(3deg)}
+.stkf:hover .stk{animation:wiggle .4s}
+@keyframes wiggle{25%{transform:rotate(6deg) scale(1.06)}75%{transform:rotate(-6deg) scale(1.06)}}
+.stk-note{text-align:center;margin-top:20px;font-family:'Caveat';font-size:1.4rem}
+
+/* ---------- PAJANGAN ---------- */
+.frames{display:flex;flex-wrap:wrap;gap:30px;justify-content:center;align-items:flex-end}
+.frame{text-align:center}
+.frame .fin{position:relative;width:170px;height:200px;padding:14px;border-radius:14px;
+  background:linear-gradient(135deg,#f3c76a,#fff1b8 40%,#d9a441 60%,#f6d98a);box-shadow:0 10px 24px rgba(90,60,20,.3),inset 0 0 0 3px rgba(120,80,20,.35)}
+.frame .fin:before{content:"";position:absolute;inset:14px;border-radius:6px;background:#eef5ff;box-shadow:inset 0 0 0 2px rgba(120,80,20,.3)}
+.frame.big .fin{width:210px;height:250px}
+.frame .star{position:relative;width:78%;height:100%;animation:floaty 3s ease-in-out infinite}
+.frame img{position:absolute;inset:14px;width:calc(100% - 28px);height:calc(100% - 28px);object-fit:contain;border-radius:6px;background:#eef5ff}
+.frame span{display:block;font-family:'Caveat';font-size:1.3rem;margin-top:12px}
+.frame:nth-child(1){transform:rotate(-4deg)}.frame:nth-child(3){transform:rotate(4deg)}
+@keyframes floaty{50%{transform:translateY(-8px) rotate(6deg)}}
+.deco-star{position:absolute;width:46px;pointer-events:none;opacity:.8;animation:floaty 4s ease-in-out infinite}
+
+/* ---------- DRAW ---------- */
+.drawbox{background:#fff;border:2.5px solid var(--ink);border-radius:16px;box-shadow:6px 7px 0 var(--ink);padding:16px;max-width:720px;margin:0 auto}
+#pad{width:100%;height:360px;display:block;border-radius:10px;touch-action:none;cursor:crosshair;
+  background:repeating-linear-gradient(0deg,transparent 0 23px,#e2ecfa 23px 24px),#fbfdff}
+.tools{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:12px}
+.sw{width:30px;height:30px;border-radius:50%;border:2.5px solid var(--ink);cursor:pointer}
+.sw.on{outline:3px solid var(--sun);outline-offset:2px}
+.tools input[type=range]{width:110px}
+.tools .btn{padding:8px 16px;font-size:.88rem;box-shadow:2px 3px 0 var(--ink)}
+.draw-note{text-align:center;font-family:'Caveat';font-size:1.35rem;margin-top:14px;min-height:1.5em}
+
+/* ---------- LETTER ---------- */
+.letter{max-width:600px;margin:0 auto;background:#fbfdff;padding:44px 34px 38px;position:relative;
+  box-shadow:0 14px 34px rgba(20,45,90,.2);transform:rotate(-.6deg);
+  background-image:repeating-linear-gradient(0deg,transparent 0 33px,rgba(91,155,240,.25) 33px 34px)}
+.letter .tape{top:-13px}
+.letter .tape.l{left:20px;transform:rotate(-8deg)}.letter .tape.r{right:20px;transform:rotate(7deg)}
+.letter p{font-family:'Caveat';font-size:1.6rem;line-height:34px;margin-bottom:34px}
+.letter .sign{text-align:right;font-size:1.9rem;margin:0}
+.ps{font-family:'Caveat';font-size:1.35rem;color:var(--ink-soft);margin-top:10px}
+
+/* ---------- MUSIC ---------- */
+#vinyl{position:fixed;right:16px;bottom:16px;z-index:40;display:flex;align-items:center;gap:10px;background:#fff;
+  border:2.5px solid var(--ink);border-radius:999px;padding:6px 16px 6px 6px;box-shadow:3px 4px 0 var(--ink);cursor:pointer;
+  font-weight:800;font-size:.85rem;max-width:calc(100vw - 32px)}
+#vinyl .disc{width:42px;height:42px;border-radius:50%;flex:none;
+  background:radial-gradient(circle,var(--pink) 0 22%,#222 23% 30%,#3a3a3a 31% 45%,#222 46% 60%,#3a3a3a 61% 75%,#222 76%)}
+#vinyl.playing .disc{animation:spin 2.5s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+#vinyl small{display:block;font-weight:600;color:var(--ink-soft);font-size:.72rem}
+
+footer{text-align:center;padding:40px 20px 110px;font-family:'Caveat';font-size:1.3rem;color:var(--ink-soft)}
+.doodle{position:absolute;pointer-events:none;opacity:.55}
+@media (max-width:600px){
+  section{padding:56px 16px}
+  .mvp{right:-6px}
+  #pad{height:300px}
+  .letter{padding:38px 22px 30px}
+  .letter p{font-size:1.45rem}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ COVER ============ -->
+<div id="cover">
+  <div class="parcel">
+    <div class="label">
+      <span class="stamp">PAKET KHUSUS</span>
+      <h1 style="margin-top:12px">Buat Cia 📦</h1>
+      <p>Isinya apa hayooo<br>Kalo penasaran buka aja yah</p>
+    </div>
+    <div class="cover-btns">
+      <button class="btn" id="buka">Buka!</button>
+      <button class="btn ghost" id="nanti">Nanti aja</button>
+    </div>
+    <div class="cover-note" id="coverNote"></div>
+  </div>
+</div>
+
+<!-- ============ HERO ============ -->
+<section id="hero">
+  <svg class="doodle" style="left:6%;top:40px" width="60" height="60" viewBox="0 0 60 60"><path d="M30 5 L36 24 L56 24 L40 36 L46 55 L30 43 L14 55 L20 36 L4 24 L24 24 Z" fill="none" stroke="#2f6fd6" stroke-width="3" stroke-linejoin="round"/></svg>
+  <svg class="doodle" style="right:8%;top:120px" width="54" height="50" viewBox="0 0 54 50"><path d="M27 46 C10 33 3 24 3 14 C3 7 9 3 15 3 C21 3 25 7 27 11 C29 7 33 3 39 3 C45 3 51 7 51 14 C51 24 44 33 27 46Z" fill="none" stroke="#8fa8f2" stroke-width="3"/></svg>
+  <div class="ign">✦ MATCH HISTORY ✦</div>
+  <div class="big">Rekap Season<br><span>Felix × Cia</span></div>
+  <p>Jungler jago yang sering gendong tim, dan si all role yang sekarang kemana yah. Season ini lagi pensi cenah, tapi laporannya tetap harus keluar.</p>
+  <div class="scroll-hint">scroll ke bawah ↓</div>
+</section>
+
+<!-- ============ PLAYER CARDS ============ -->
+<section id="players">
+  <div class="deco-star" style="left:2%;top:30px"><svg viewBox="0 0 100 100" class="star"><path d="M50 6c4 0 6 3 8 9l7 19 20 2c6 1 9 3 9 7s-2 5-6 9l-15 13 5 20c1 6 0 9-3 10-3 2-6 0-10-3L50 81 35 92c-4 3-7 5-10 3-3-1-4-4-3-10l5-20-15-13c-4-4-6-6-6-9s3-6 9-7l20-2 7-19c2-6 4-9 8-9z" fill="#a8cdf7" stroke="#2f6fd6" stroke-width="3" stroke-linejoin="round"/><circle cx="50" cy="30" r="2.5" fill="#fff" opacity=".8"/><circle cx="34" cy="50" r="2" fill="#fff" opacity=".8"/><circle cx="66" cy="50" r="2" fill="#fff" opacity=".8"/><circle cx="42" cy="70" r="2" fill="#fff" opacity=".8"/><circle cx="58" cy="70" r="2" fill="#fff" opacity=".8"/></svg></div>
+  <h2 class="reveal">Kartu Pemain</h2>
+  <p class="sub reveal">data diambil dari pengamatan yang sangat tidak objektif</p>
+  <div class="cards">
+    <div class="pcard reveal">
+      <div class="tape"></div>
+      <div class="mvp">MVP<small>SEASON INI</small></div>
+      <div class="ign">fel!x, montclair.</div>
+      <h3>Felix</h3>
+      <span class="role">JUNGLE</span>
+      <div class="stat"><span>Rank sekarang</span><b>★66</b></div>
+      <div class="stat"><span>Rank tertinggi</span><b>★115</b></div>
+      <div class="stat"><span>Total match</span><b>6.552</b></div>
+      <div class="stat"><span>Skill utama</span><b>gendong tim sampai menang 💪</b></div>
+      <div class="stat"><span>Kelemahan</span><b>gak ada, udah setara juragan Fetzz 😎</b></div>
+      <div style="margin-top:12px;font-size:.85rem">Tingkat jago</div>
+      <div class="bar"><i data-w="90%"></i></div>
+    </div>
+    <div class="pcard reveal">
+      <div class="tape lilac"></div>
+      <div class="ign">che!ly, love.</div>
+      <h3>Cia</h3>
+      <span class="role">ALL ROLE</span>
+      <div class="stat"><span>Rank sekarang</span><b style="color:var(--pink-deep)">EPIC IV 💀</b></div>
+      <div class="stat"><span>Rank tertinggi</span><b>★100 (dulu)</b></div>
+      <div class="stat"><span>Total match</span><b>4.023</b></div>
+      <div class="stat"><span>Skill utama</span><b>pembohonk public</b></div>
+      <div class="stat"><span>Side job</span><b>seniman + pejuang tugas anomali</b></div>
+      <div style="margin-top:12px;font-size:.85rem">Tingkat mencintai tugas</div>
+      <div class="bar"><i data-w="100%"></i></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GALLERY ============ -->
+<section id="gallery">
+  <h2 class="reveal">Highlight Season</h2>
+  <p class="sub reveal">klik fotonya biar gede</p>
+  <div class="board">
+    <figure class="polaroid feature reveal" style="transform:rotate(-2deg)">
+      <div class="tape"></div>
+      <img src="img/selfie.jpg" alt="Felix dan Cia">
+      <figcaption>Sosok aseli duo maut 😈</figcaption>
+    </figure>
+    <figure class="polaroid reveal" style="transform:rotate(2deg)">
+      <div class="tape mint"></div>
+      <img src="img/lobby.jpg" alt="Lobby">
+      <figcaption>MASIH INGET INI GAK WKWK</figcaption>
+    </figure>
+    <figure class="polaroid reveal" style="transform:rotate(-1deg)">
+      <div class="tape lilac"></div>
+      <img src="img/emote-angela.jpg" alt="Emote bareng">
+      <figcaption>Buat JJ nihh</figcaption>
+    </figure>
+    <figure class="polaroid reveal" style="transform:rotate(1.5deg)">
+      <div class="tape"></div>
+      <img src="img/jungle-duo.jpg" alt="Duo di jungle">
+      <figcaption>Ngapain tuh berduaan di kebon </figcaption>
+    </figure>
+    <figure class="polaroid reveal" style="transform:rotate(-2.5deg)">
+      <div class="tape mint"></div>
+      <img src="img/emote-war.jpg" alt="Emote war">
+      <figcaption>Trend imuttt</figcaption>
+    </figure>
+    <figure class="polaroid reveal" style="transform:rotate(2deg)">
+      <div class="tape lilac"></div>
+      <img src="img/emote-pink.jpg" alt="Momen ngambek">
+      <figcaption>WHEN YAH BIKIN JJ LAGI</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ============ RANK CHECK ============ -->
+<section id="rank">
+  <h2 class="reveal">Cek Rank Terkini</h2>
+  <p class="sub reveal">investigasi resmi, barang bukti terlampir</p>
+  <div class="evidence">
+    <figure class="polaroid reveal" style="transform:rotate(-1.5deg)">
+      <div class="tape mint"></div>
+      <img src="img/profil-felix.jpg" alt="Profil Felix">
+      <figcaption>Bukti A: Felix. ★66, masih aman ajah.</figcaption>
+    </figure>
+    <figure class="polaroid reveal" style="transform:rotate(1.5deg)">
+      <div class="tape lilac"></div>
+      <img src="img/profil-cia.jpg" alt="Profil Cia">
+      <figcaption>Bukti B: Cia. Tertinggi ★100, sekarang... wait.</figcaption>
+    </figure>
+  </div>
+  <div class="rankbox reveal">
+    <div class="rk-row">
+      <div class="rk"><small>RANK TERTINGGI</small><b>★100</b><span>sosok legenda</span></div>
+      <div class="rk-arrow">➜</div>
+      <div class="rk now" id="rkNow"><small>RANK SEKARANG</small><b>???</b><span>tap tombol di bawah</span></div>
+    </div>
+    <button class="btn" id="cekRank">Cek rank Cia sekarang 🔍</button>
+    <div class="ape" id="ape">
+      <img class="epic-logo" src="img/epic.png" alt="Logo Epic">
+      <div class="epic-stamp">EPIC IV</div>
+      <div class="ape-txt">ape tu woi, sosok aseli EPIC 😭😭</div>
+      <div class="ape-sub">penyebab: dispam tugas-tugas anomali, Land of Dawn ditinggal.</div>
+    </div>
+  </div>
+  <div class="hiatus reveal">
+    <div><small>TERAKHIR MABAR</small><b>Mei 2026</b></div>
+    <div><small>UDAH NGGAK MABAR</small><b id="hiatusN">…</b></div>
+    <div><small>STATUS DUO</small><b>AFK (masih nunggu)</b></div>
+  </div>
+</section>
+
+<!-- ============ BADGES ============ -->
+<section id="badges">
+  <div class="deco-star" style="right:3%;top:40px"><svg viewBox="0 0 100 100" class="star"><path d="M50 6c4 0 6 3 8 9l7 19 20 2c6 1 9 3 9 7s-2 5-6 9l-15 13 5 20c1 6 0 9-3 10-3 2-6 0-10-3L50 81 35 92c-4 3-7 5-10 3-3-1-4-4-3-10l5-20-15-13c-4-4-6-6-6-9s3-6 9-7l20-2 7-19c2-6 4-9 8-9z" fill="#a8cdf7" stroke="#2f6fd6" stroke-width="3" stroke-linejoin="round"/><circle cx="50" cy="30" r="2.5" fill="#fff" opacity=".8"/><circle cx="34" cy="50" r="2" fill="#fff" opacity=".8"/><circle cx="66" cy="50" r="2" fill="#fff" opacity=".8"/><circle cx="42" cy="70" r="2" fill="#fff" opacity=".8"/><circle cx="58" cy="70" r="2" fill="#fff" opacity=".8"/></svg></div>
+  <h2 class="reveal">Achievement Unlocked</h2>
+  <p class="sub reveal">tap tiap badge buat buka</p>
+  <div class="badges" id="badgeGrid"></div>
+  <div class="counter" id="badgeCount">0 / 6 terbuka</div>
+</section>
+
+<!-- ============ QUIZ ============ -->
+<section id="quiz">
+  <h2 class="reveal">Kuis Receh</h2>
+  <p class="sub reveal">jawab yang jujur ya</p>
+  <div class="quiz reveal">
+    <div class="qn" id="qn">SOAL 1 / 3</div>
+    <h3 id="qtext"></h3>
+    <div class="opts" id="opts"></div>
+    <div class="qres" id="qres"></div>
+    <button class="btn qnext" id="qnext">Soal berikutnya →</button>
+  </div>
+</section>
+
+<!-- ============ STICKERS ============ -->
+<section id="stickers">
+  <h2 class="reveal">Stiker Keramat</h2>
+  <p class="sub reveal">stiker stiker random nih</p>
+  <div class="stickers">
+    <figure class="stkf reveal"><div class="stk"><span>stiker #1</span><img src="stiker/1.jpg" alt="" onerror="this.remove()"></div><figcaption>Cia pas di buli Felix</figcaption></figure>
+    <figure class="stkf reveal"><div class="stk"><span>stiker #2</span><img src="stiker/2.jpg" alt="" onerror="this.remove()"></div><figcaption>Cia pas dengar ada tugas baru</figcaption></figure>
+    <figure class="stkf reveal"><div class="stk"><span>stiker #3</span><img src="stiker/3.jpg" alt="" onerror="this.remove()"></div><figcaption>Reaksi pas liat rank Epic</figcaption></figure>
+    <figure class="stkf reveal"><div class="stk"><span>stiker #4</span><img src="stiker/4.jpg" alt="" onerror="this.remove()"></div><figcaption>Felix pas Cia akhirnya immo lagi</figcaption></figure>
+  </div>
+</section>
+
+<!-- ============ DRAW ============ -->
+<section id="draw">
+  <h2 class="reveal">Gambar Bareng</h2>
+  <p class="sub reveal">sambil nunggu janjiannya kejadian, coret-coret di sini dulu</p>
+  <div class="drawbox reveal">
+    <canvas id="pad"></canvas>
+    <div class="tools">
+      <div class="sw on" style="background:#1f2d4a" data-c="#1f2d4a"></div>
+      <div class="sw" style="background:#2f6fd6" data-c="#2f6fd6"></div>
+      <div class="sw" style="background:#8fa8f2" data-c="#8fa8f2"></div>
+      <div class="sw" style="background:#3fb7c9" data-c="#3fb7c9"></div>
+      <div class="sw" style="background:#ffc93c" data-c="#ffc93c"></div>
+      <div class="sw" style="background:#ffffff" data-c="#ffffff" title="penghapus"></div>
+      <input type="range" id="size" min="2" max="24" value="5" aria-label="Ukuran kuas">
+      <button class="btn ghost" id="undo">Undo</button>
+      <button class="btn ghost" id="clear">Hapus</button>
+      <button class="btn" id="save">Simpan</button>
+    </div>
+  </div>
+  <p class="draw-note" id="drawNote">gambar apa aja, terus kirim ke Felix yah 🎨</p>
+</section>
+
+<!-- ============ LETTER ============ -->
+<section id="letter">
+  <div class="deco-star" style="left:4%;top:50px"><svg viewBox="0 0 100 100" class="star"><path d="M50 6c4 0 6 3 8 9l7 19 20 2c6 1 9 3 9 7s-2 5-6 9l-15 13 5 20c1 6 0 9-3 10-3 2-6 0-10-3L50 81 35 92c-4 3-7 5-10 3-3-1-4-4-3-10l5-20-15-13c-4-4-6-6-6-9s3-6 9-7l20-2 7-19c2-6 4-9 8-9z" fill="#a8cdf7" stroke="#2f6fd6" stroke-width="3" stroke-linejoin="round"/><circle cx="50" cy="30" r="2.5" fill="#fff" opacity=".8"/><circle cx="34" cy="50" r="2" fill="#fff" opacity=".8"/><circle cx="66" cy="50" r="2" fill="#fff" opacity=".8"/><circle cx="42" cy="70" r="2" fill="#fff" opacity=".8"/><circle cx="58" cy="70" r="2" fill="#fff" opacity=".8"/></svg></div>
+  <h2 class="reveal">Catatan Kecil</h2>
+  <p class="sub reveal">yang terakhir, janji</p>
+  <div class="letter reveal">
+    <div class="tape l"></div><div class="tape lilac r"></div>
+    <p>Cia,</p>
+    <p>Ini bukan buat ultah, ultahmu kan masih Mei. Ini juga bukan buat apa-apa sih, aku cuma pengen kamu ketawa hari ini.</p>
+    <p>Makasih ya udah jadi duo paling seru. Mau menang, mau kalah, kamu tetap nemenin (walaupun season ini pensi). Makasih juga buat semua stiker jomok anomali yang selalu bikin ngakak.</p>
+    <p>Aku tau sekarang kamu lagi dispam tugas-tugas anomali, makanya kita udah lama nggak mabar. SEMANGATT YAA NGERJAINNYAA. Nanti kalau udah libur, ayo mabarr lagi. SAMPAI IMMOOOOOO.</p>
+    <p class="sign">— Felix</p>
+  </div>
+</section>
+
+<footer>dibuat sambil dirodok rodok mas amba ✦ next season kita bantai land of dawn</footer>
+
+<div id="vinyl" role="button" aria-label="Putar lagu">
+  <div class="disc"></div>
+  <div><span id="vTitle">Pelangi — HIVI!</span><small id="vSub">tap buat puter</small></div>
+</div>
+<audio id="song" src="lagu-pelangi.mp3" loop preload="none"></audio>
+
+<div id="lightbox"><img alt=""></div>
+
+<script>
+/* ---------- cover ---------- */
+const cover=document.getElementById('cover'),nanti=document.getElementById('nanti'),note=document.getElementById('coverNote');
+const kabur=["eh gak boleh woi🙅","gak ada pilihan loh yaa","ketauan tuh mau nunda","udah, pencet Buka aja wok","😤"];
+let k=0;
+function lari(e){
+  if(e) e.preventDefault();
+  const x=(Math.random()*2-1)*120,y=(Math.random()*2-1)*60;
+  nanti.style.transform=`translate(${x}px,${y}px) scale(${Math.max(.45,1-k*.12)})`;
+  note.textContent=kabur[Math.min(k,kabur.length-1)];k++;
+}
+nanti.addEventListener('mouseenter',lari);nanti.addEventListener('touchstart',lari,{passive:false});nanti.addEventListener('click',lari);
+document.getElementById('buka').addEventListener('click',()=>{
+  cover.classList.add('gone');confetti();playSong();
+});
+
+/* ---------- confetti ---------- */
+function confetti(){
+  const cols=['#5b9bf0','#8fa8f2','#9edcea','#ffd36b','#2f6fd6'];
+  for(let i=0;i<70;i++){
+    const d=document.createElement('div');
+    const s=6+Math.random()*8;
+    d.style.cssText=`position:fixed;z-index:70;top:-20px;left:${Math.random()*100}vw;width:${s}px;height:${s*1.4}px;background:${cols[i%5]};border-radius:2px;pointer-events:none`;
+    document.body.appendChild(d);
+    d.animate([{transform:'translateY(0) rotate(0)'},{transform:`translateY(${innerHeight+60}px) rotate(${Math.random()*720}deg) translateX(${(Math.random()*2-1)*120}px)`}],
+      {duration:2200+Math.random()*1800,easing:'cubic-bezier(.2,.6,.4,1)'}).onfinish=()=>d.remove();
+  }
+}
+
+/* ---------- reveal on scroll ---------- */
+const io=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting){e.target.classList.add('in');
+    e.target.querySelectorAll('.bar i').forEach(b=>b.style.width=b.dataset.w);io.unobserve(e.target)}
+}),{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* ---------- lightbox ---------- */
+const lb=document.getElementById('lightbox');
+document.querySelectorAll('.polaroid img').forEach(i=>i.addEventListener('click',()=>{lb.querySelector('img').src=i.src;lb.classList.add('on')}));
+lb.addEventListener('click',()=>lb.classList.remove('on'));
+
+/* ---------- badges ---------- */
+const badges=[
+  ["🛡️","Bodyguard Pribadi","Cia selalu ada pas Felix lagi dikeroyok. Kebetulan? gak juga."],
+  ["☂️","Payung Terbang","Kagura lempar payung, Cia ikut ngilang dari map. (death)"],
+  ["🎨","Dua Seniman","Sama-sama hobi gambar, tapi belum pernah gambar bareng. When Yah."],
+  ["🌈","Lagu Wajib","Pelangi — HIVI! diputer sampe hafal."],
+  ["📉","Turun Kasta","Dulu ★100, sekarang Epic Hitam"],
+  ["📚","Hiatus Season","Sejak dispam tugas anomali. Land of Dawn kangen."]
+];
+const grid=document.getElementById('badgeGrid');let opened=0;
+badges.forEach(([ico,t,back])=>{
+  const b=document.createElement('div');b.className='badge reveal';
+  b.innerHTML=`<div class="inner"><div class="face front"><div class="ico">${ico}</div><div class="t">${t}</div><div class="lock">🔒 tap buat buka</div></div><div class="face back">${back}</div></div>`;
+  b.addEventListener('click',()=>{
+    if(!b.dataset.seen){b.dataset.seen=1;opened++;
+      document.getElementById('badgeCount').textContent=opened===badges.length?`${badges.length} / ${badges.length}, semua achievement kebuka 🏆`:`${opened} / ${badges.length} terbuka`;
+      if(opened===badges.length)confetti();}
+    b.classList.toggle('flip');
+  });
+  grid.appendChild(b);io.observe(b);
+});
+
+/* ---------- quiz ---------- */
+const Q=[
+  {q:"Siapa yang paling sering bikin kalah?",o:["Felix","Cia"],dodge:0,
+   r:["—","Ngaku juga akhirnya 😌 Felix mah gendong terus boss"]},
+  {q:"Pas Felix lagi nyerang, Cia biasanya lagi...",o:["Cover","Pura pura gak liat","Recall Recall"],
+   r:["Iya, makanya sering mati bareng 🥹","Di cuekin jirr","Ini sih paling sering 😭"]},
+  {q:"Rank Cia sekarang apa?",o:["Immortal","Epic IV","Rahasia negara"],
+   r:["Itu kan dulu... sadar wokk 😭","Dasar Badak 💀","Udah ketauan kok, tadi ada barang buktinya 🔍"]},
+  {q:"Kapan kita gambar bareng?",o:["Kapan Kapan","Kalo ketemu","Malas"],dodge:2,
+   r:["Oke masuk wishlist ✍️","GASSS 🎨","-"]}
+];
+let qi=0;const qtext=document.getElementById('qtext'),opts=document.getElementById('opts'),qres=document.getElementById('qres'),qnext=document.getElementById('qnext');
+function renderQ(){
+  const d=Q[qi];document.getElementById('qn').textContent=`SOAL ${qi+1} / ${Q.length}`;
+  qtext.textContent=d.q;opts.innerHTML='';qres.textContent='';qnext.style.display='none';
+  d.o.forEach((t,i)=>{
+    const b=document.createElement('button');b.className='btn';b.textContent=t;
+    if(d.dodge===i){b.classList.add('dodge');
+      const run=e=>{e.preventDefault();b.style.left=((Math.random()*2-1)*110)+'px';b.style.top=((Math.random()*2-1)*45)+'px';
+        qres.textContent=i===0&&qi===0?"eits, Felix nggak pernah bikin kalah 😌":"jawaban ini lagi maintenance 🔧"};
+      b.addEventListener('mouseenter',run);b.addEventListener('touchstart',run,{passive:false});b.addEventListener('click',run);
+    }else b.addEventListener('click',()=>{qres.textContent=d.r[i];
+      qnext.style.display=qi<Q.length-1?'inline-block':'none';
+      if(qi===Q.length-1){qres.textContent+=" — kuis selesai, nilainya 100 🎉";confetti();}});
+    opts.appendChild(b);
+  });
+}
+qnext.addEventListener('click',()=>{qi++;renderQ()});renderQ();
+
+/* ---------- rank check ---------- */
+document.getElementById('cekRank').addEventListener('click',e=>{
+  const now=document.getElementById('rkNow');
+  now.querySelector('b').innerHTML='<img src="img/epic.png" alt="" style="height:46px;vertical-align:middle;margin-right:4px">IV';now.querySelector('span').textContent='turun kasta 💀';
+  now.classList.remove('hit');void now.offsetWidth;now.classList.add('hit');
+  const ape=document.getElementById('ape');ape.classList.remove('on');void ape.offsetWidth;ape.classList.add('on');
+  e.target.textContent='Cek lagi (siapa tau berubah) 🔍';
+});
+(()=>{const s=new Date(2026,4,1),n=new Date();let m=(n.getFullYear()-s.getFullYear())*12+n.getMonth()-s.getMonth();
+  document.getElementById('hiatusN').textContent=`± ${m} bulan 🥲`})();
+
+/* ---------- drawing pad ---------- */
+const pad=document.getElementById('pad'),ctx=pad.getContext('2d');let color='#1f2d4a',size=5,drawing=false,hist=[];
+function fit(){const r=pad.getBoundingClientRect(),img=hist.length?hist[hist.length-1]:null;
+  pad.width=r.width*devicePixelRatio;pad.height=r.height*devicePixelRatio;ctx.scale(devicePixelRatio,devicePixelRatio);
+  ctx.lineCap='round';ctx.lineJoin='round';if(img)ctx.putImageData(img,0,0)}
+fit();addEventListener('resize',()=>{hist=[];fit()});
+function pos(e){const r=pad.getBoundingClientRect();return[e.clientX-r.left,e.clientY-r.top]}
+pad.addEventListener('pointerdown',e=>{drawing=true;pad.setPointerCapture(e.pointerId);
+  hist.push(ctx.getImageData(0,0,pad.width,pad.height));if(hist.length>30)hist.shift();
+  const[x,y]=pos(e);ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x+.1,y+.1);ctx.strokeStyle=color;ctx.lineWidth=size;ctx.stroke()});
+pad.addEventListener('pointermove',e=>{if(!drawing)return;const[x,y]=pos(e);ctx.lineTo(x,y);ctx.stroke()});
+['pointerup','pointercancel','pointerleave'].forEach(t=>pad.addEventListener(t,()=>drawing=false));
+document.querySelectorAll('.sw').forEach(s=>s.addEventListener('click',()=>{document.querySelectorAll('.sw').forEach(x=>x.classList.remove('on'));s.classList.add('on');color=s.dataset.c}));
+document.getElementById('size').addEventListener('input',e=>size=+e.target.value);
+document.getElementById('undo').addEventListener('click',()=>{const h=hist.pop();if(h)ctx.putImageData(h,0,0)});
+document.getElementById('clear').addEventListener('click',()=>{hist.push(ctx.getImageData(0,0,pad.width,pad.height));ctx.clearRect(0,0,pad.width,pad.height)});
+document.getElementById('save').addEventListener('click',()=>{
+  const dn=document.getElementById('drawNote');
+  try{const tmp=document.createElement('canvas');tmp.width=pad.width;tmp.height=pad.height;const t=tmp.getContext('2d');
+    t.fillStyle='#fbfdff';t.fillRect(0,0,tmp.width,tmp.height);t.drawImage(pad,0,0);
+    const a=document.createElement('a');a.download='gambar-cia-buat-felix.png';a.href=tmp.toDataURL('image/png');a.click();
+    dn.textContent='kesimpen! kirim ke Felix ya 💌 (kalau nggak kedownload, screenshot aja)';
+  }catch(err){dn.textContent='screenshot aja terus kirim ke Felix ya 💌'}
+});
+
+/* ---------- music ---------- */
+const song=document.getElementById('song'),vinyl=document.getElementById('vinyl'),vSub=document.getElementById('vSub');
+function playSong(){song.play().then(()=>{vinyl.classList.add('playing');vSub.textContent='lagi diputer ♪'}).catch(()=>{vSub.textContent='tap buat puter'})}
+vinyl.addEventListener('click',()=>{if(song.paused)playSong();else{song.pause();vinyl.classList.remove('playing');vSub.textContent='di-pause'}});
+song.addEventListener('error',()=>{vinyl.classList.remove('playing');vSub.textContent='lagunya belum dipasang'});
+</script>
+</body>
+</html>
